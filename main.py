@@ -11,12 +11,13 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")  # Get this Key from the Google Cloud Console by creating a Project and activating YouTube Data API v3
 CHANNEL_ID = os.getenv("CHANNEL_ID")  # This ID you can get from your channel by going in your BIO and choosing share channel and Copy Channel ID
 DOWNLOAD_PATH = "./downloads"
-TRACK_FILE = "downloaded_videos.txt"
+TRACK_FILE = "downloaded_videos.txt" ##TODO Fix File writinh
 
 # Create downloads directory if it doesn't exist
 if not os.path.exists(DOWNLOAD_PATH):
     os.makedirs(DOWNLOAD_PATH)
 
+##TODO Fix Downloaded Tracks logging or maybe switch to DB
 def load_downloaded_ids():
     """Load the list of downloaded video IDs from the tracking file."""
     if not os.path.exists(TRACK_FILE):
@@ -58,13 +59,12 @@ def download_best_quality(video_url, video_title, video_id, downloaded_ids):
             audio_file = audio_stream.download(output_path=DOWNLOAD_PATH, filename=f"{video_id}_audio.mp4")
 
             # Combine video and audio using ffmpeg-python
-            ###TODO fix this since the combination does not seem to work
             output_file = os.path.join(DOWNLOAD_PATH, f"{video_id}.mp4")
             try:
                 (
                     ffmpeg
                     .input(video_file)
-                    .output(audio_file)
+                    .input(audio_file)
                     .output(output_file, vcodec='copy', acodec='aac', strict='experimental')
                     .run(overwrite_output=True)
                 )
