@@ -18,7 +18,7 @@ Click on Environment Variables.
 Under System variables, find and select the Path variable, then click Edit.
 Add the path to the ffmpeg\bin directory, for example, C:\ffmpeg\bin, then click OK to close all dialogs.
 
-#TODOS
+# TODOS
 Fix Best quality combination since it seems that it is not working
 
 Add reupload functionality to TikTok
